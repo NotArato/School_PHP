@@ -1,0 +1,18 @@
+<?php
+$products = array(
+    'paper' => array(
+        'copier'=> 'Copier & Multipurpose',
+        'inkjet'=> 'Intjet Printer',
+        'laser'=> 'Laser Printer',
+        'photo'=> 'Photographic Paper'),
+    'pens' => array(
+        'ball'=> 'Ball Point',
+        'hilite'=> 'Highlighters',
+        'marker'=> 'Markers'),
+    'misc' => array(
+        'tape'=> 'Sticky Tape',
+        'glue'=> 'Adhesives',
+        'clips'=> 'Paperclips'),
+    );
+    echo $products["pens"]["marker"];
+    ?>
