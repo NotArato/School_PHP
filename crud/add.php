@@ -2,6 +2,7 @@
 require_once "pdo.php";
 session_start();
 
+// Guardian: Make sure that user_id is present
 if ( isset($_POST['name']) && isset($_POST['email'])
      && isset($_POST['password'])) {
 
@@ -12,12 +13,14 @@ if ( isset($_POST['name']) && isset($_POST['email'])
         return;
     }
 
+    // Email validation
     if ( strpos($_POST['email'],'@') === false ) {
         $_SESSION['error'] = 'Bad data';
         header("Location: add.php");
         return;
     }
 
+    // Data is valid, insert it into the database
     $sql = "INSERT INTO users (name, email, password)
               VALUES (:name, :email, :password)";
     $stmt = $pdo->prepare($sql);

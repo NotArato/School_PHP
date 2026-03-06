@@ -12,12 +12,14 @@ if ( isset($_POST['name']) && isset($_POST['email'])
         return;
     }
 
+    // Email validation
     if ( strpos($_POST['email'],'@') === false ) {
         $_SESSION['error'] = 'Bad data';
         header("Location: edit.php?user_id=".$_POST['user_id']);
         return;
     }
 
+    // Perform the update
     $sql = "UPDATE users SET name = :name,
             email = :email, password = :password
             WHERE user_id = :user_id";
@@ -39,9 +41,11 @@ if ( ! isset($_GET['user_id']) ) {
   return;
 }
 
+// Load the user data
 $stmt = $pdo->prepare("SELECT * FROM users where user_id = :xyz");
 $stmt->execute(array(":xyz" => $_GET['user_id']));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
+// Guardian: Make sure we got a row back
 if ( $row === false ) {
     $_SESSION['error'] = 'Bad value for user_id';
     header( 'Location: index.php' ) ;
@@ -54,6 +58,7 @@ if ( isset($_SESSION['error']) ) {
     unset($_SESSION['error']);
 }
 
+// Put the data into variables for easy use in the HTML
 $n = htmlentities($row['name']);
 $e = htmlentities($row['email']);
 $p = htmlentities($row['password']);

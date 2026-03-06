@@ -2,6 +2,7 @@
 require_once "pdo.php";
 session_start();
 
+// Handle the incoming data
 if ( isset($_POST['delete']) && isset($_POST['user_id']) ) {
     $sql = "DELETE FROM users WHERE user_id = :zip";
     $stmt = $pdo->prepare($sql);
@@ -18,9 +19,11 @@ if ( ! isset($_GET['user_id']) ) {
   return;
 }
 
+// Load the user data
 $stmt = $pdo->prepare("SELECT name, user_id FROM users where user_id = :xyz");
 $stmt->execute(array(":xyz" => $_GET['user_id']));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
+// Guardian: Make sure we got a row back
 if ( $row === false ) {
     $_SESSION['error'] = 'Bad value for user_id';
     header( 'Location: index.php' ) ;
